@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window">
@@ -9,9 +9,6 @@
     <property name="default_height">250</property>
     <property name="icon_name">dialog-password</property>
     <signal name="destroy" handler="onDestroy" swapped="no"/>
-    <child>
-      <placeholder/>
-    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
@@ -76,14 +73,12 @@
             <property name="can_focus">False</property>
             <property name="spacing">50</property>
             <child>
-              <object class="GtkRadioButton" id="radiobuttonA">
+              <object class="GtkToggleButton" id="toggle1">
                 <property name="label" translatable="yes">Vlan1</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
-                <signal name="clicked" handler="onRadioButtonaActivate" swapped="no"/>
+                <property name="receives_default">True</property>
+                <signal name="toggled" handler="onButton1Toggled" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -92,13 +87,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="radiobuttonB">
+              <object class="GtkToggleButton" id="toggle2">
                 <property name="label" translatable="yes">Vlan2</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
+                <property name="receives_default">True</property>
+                <signal name="toggled" handler="onButton2Toggled" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -107,13 +101,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="radiobuttonC">
+              <object class="GtkToggleButton" id="toggle3">
                 <property name="label" translatable="yes">Show Vlan</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
+                <property name="receives_default">True</property>
+                <signal name="toggled" handler="onButton3Toggled" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -144,10 +137,6 @@
           <object class="GtkLabel" id="label1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <attributes>
-              <attribute name="foreground" value="#2e2e34343636"/>
-              <attribute name="background" value="#555557575353"/>
-            </attributes>
           </object>
           <packing>
             <property name="expand">False</property>
