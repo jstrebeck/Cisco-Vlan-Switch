@@ -10,7 +10,7 @@ import gobject
 import os
 from subprocess import Popen, PIPE
 import fcntl
-global state
+global Var
 
 class Handler:
     def onDestroy(self, *args):
@@ -29,26 +29,24 @@ class Handler:
         password = entry.get_text()
         entry.set_visibility(False)
 
-    def onButtonPressed(self, button):
-        print(state())
-
     def onButton1Toggled(self, button):
         if button.get_active():
-            state = state + Vlan1()
-        else:
-            state = state - Vlan1()
+            Vlan1()
+
 
     def onButton2Toggled(self, button):
         if button.get_active():
-            state = state + Vlan2()
+            Var = Var + Vlan2()
         else:
-            state = state - Vlan2()
+            Var = Var - Vlan2()
 
     def onButton3Toggled(self, button):
         if button.get_active():
-            state = state + SHVlan()
-        else:
-            state = state - SHVlan()
+            SHVlan()
+
+
+    def onButtonPressed(self, button):
+        print(Var)
 
 def SHVlan():
     tn = telnetlib.Telnet(HOST)
@@ -77,14 +75,33 @@ def Vlan1():
     tn.write("enable\n")
     tn.write("cisco\n")
     tn.write("conf t\n")
-    tn.write("int loop 0\n")
-    tn.write("ip address 1.1.1.1 255.255.255.255\n")
-    tn.write("int loop 1\n")
-    tn.write("ip address 2.2.2.2 255.255.255.255\n")
-    tn.write("router ospf 1\n")
-    tn.write("network 0.0.0.0 255.255.255.255 area 0\n")
+    tn.write("int Gi1/0/37\n")
+    tn.write("switchport access vlan 1\n")
+    tn.write("shutdown\n")
+    tn.write("no shutdown\n")
     tn.write("end\n")
     tn.write("exit\n")
+    global var1
+    var1 = tn.read_all()
+
+def Vlan2():
+    tn = telnetlib.Telnet(HOST)
+    tn.read_until("Username: ")
+    tn.write(user + "\n")
+    if password:
+        tn.read_until("Password: ")
+        tn.write(password + "\n")
+    tn.write("enable\n")
+    tn.write("cisco\n")
+    tn.write("conf t\n")
+    tn.write("int Gi1/0/37\n")
+    tn.write("switchport access vlan 2\n")
+    tn.write("shutdown\n")
+    tn.write("no shutdown\n")
+    tn.write("end\n")
+    tn.write("exit\n")
+    global var1
+    var1 = tn.read_all()
 
 def terminal():
     myobject = builder.get_object("label1")
