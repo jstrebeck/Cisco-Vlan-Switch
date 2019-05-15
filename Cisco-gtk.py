@@ -29,24 +29,11 @@ class Handler:
         password = entry.get_text()
         entry.set_visibility(False)
 
-    def onButton1Toggled(self, button):
-        if button.get_active():
-            Vlan1()
+    def onButton1Clicked(self, button):
+        Vlan1()
 
-
-    def onButton2Toggled(self, button):
-        if button.get_active():
-            Var = Var + Vlan2()
-        else:
-            Var = Var - Vlan2()
-
-    def onButton3Toggled(self, button):
-        if button.get_active():
-            SHVlan()
-
-
-    def onButtonPressed(self, button):
-        print(Var)
+    def onButton2Clicked(self, button):
+        Vlan2()
 
 def SHVlan():
     tn = telnetlib.Telnet(HOST)
@@ -83,6 +70,7 @@ def Vlan1():
     tn.write("exit\n")
     global var1
     var1 = tn.read_all()
+    SHVlan()
 
 def Vlan2():
     tn = telnetlib.Telnet(HOST)
@@ -102,6 +90,7 @@ def Vlan2():
     tn.write("exit\n")
     global var1
     var1 = tn.read_all()
+    SHVlan()
 
 def terminal():
     myobject = builder.get_object("label1")
